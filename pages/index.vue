@@ -1,15 +1,18 @@
 <template>
 <div>
-  <p> coucou mes stars</p>
+  <p> {{ data }}</p>
 </div>
 </template>
 <script>
-
-export default{
-async asyncData({ $axios }) {
-  const ip = await $axios.$get('http://icanhazip.com')
-  return { ip }
-}
-
+export default {
+  data () {
+    return {
+      data: '',
+    }
+  },
+  async fetch() {
+    const res = await this.$axios.get('https://pokeapi.co/api/v2/pokemon/ditto')
+    this.data = res.data
+  },
 }
 </script>
