@@ -1,12 +1,5 @@
 [
   {
-    "name": "components-PokemonList",
-    "path": "/components/PokemonList",
-    "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\components\\\\PokemonList.vue",
-    "chunkName": "pages/components/PokemonList",
-    "_name": "_4082b7da"
-  },
-  {
     "name": "index",
     "path": "/",
     "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\index.vue",
