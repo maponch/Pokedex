@@ -1,0 +1,23 @@
+[
+  {
+    "name": "components-PokemonList",
+    "path": "/components/PokemonList",
+    "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\components\\\\PokemonList.vue",
+    "chunkName": "pages/components/PokemonList",
+    "_name": "_4082b7da"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_28dc176c"
+  },
+  {
+    "name": "id",
+    "path": "/:id",
+    "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\_id.vue",
+    "chunkName": "pages/_id",
+    "_name": "_5ac48132"
+  }
+]
