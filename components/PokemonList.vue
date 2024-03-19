@@ -1,22 +1,35 @@
 <template>
-<p v-if="ip">Votre adresse IP est : {{ ip }}</p>
-
+<div>
+  <span v-if="$fetchState.pending">Loading...</span>
+  <div v-else>
+    <pre>{{  data }}</pre>
+    <button type="button" @click="goNextPage">suivant</button>
+  </div>
+</div>
 </template>
 <script>
-
 export default {
-  data(){
-    return{
-      ip: null
+  data () {
+    return {
+      pokedexPath: 'https://pokeapi.co/api/v2/pokemon',
+      pageNextPath: null,
+      data: '',
     }
   },
+  async fetch() {
+    await this.getPokemons()
+  },
   methods: {
-    async fetchSomething() {
-      try{
-          const ip = await this.$axios.$get('https://pokeapi.co/api/v2/pokemon/ditto')
-          this.ip = ip
-      }catch (error){
-        console.error(error)
-      }
+    async getPokemons() {
+      const {results, next} = await this.$axios.$get(this.pokedexPath)
+      this.data = results
+      this.pageNextPath = next
+    },
+
+    goNextPage() {
+      this.pokedexPath = this.pageNextPath
+      this.$fetch()
+    }
+  }
 }
 </script>

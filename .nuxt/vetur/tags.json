@@ -1,0 +1,11 @@
+{
+  "PokemonCard": {
+    "description": "Auto imported from components/PokemonCard.vue"
+  },
+  "PokemonList": {
+    "description": "Auto imported from components/PokemonList.vue"
+  },
+  "SearchBar": {
+    "description": "Auto imported from components/SearchBar.vue"
+  }
+}
