@@ -7,7 +7,7 @@
 import PokemonList from '@/components/PokemonList.vue';
 export default{
   components: {
-    PokemonList,
+    PokemonList
   }
 }
 </script>
