@@ -2,32 +2,30 @@
 <div>
   <span v-if="$fetchState.pending">Loading...</span>
   <div v-else>
-    <ul>
-      <li v-for="data in datas">
-        <NuxtLink :to="`/pokemon/${data.name}`" >
-          <el-table
-            :data="tableData"
-            border
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="Date"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="Nom"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="Adresse">
-            </el-table-column>
-          </el-table>
-          {{ data.name }}
-        </NuxtLink>
-      </li>
-    </ul>
+        <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
+      <el-table
+        :data="tableData"
+        border
+        style="width: 100%">
+        
+        <el-table-column
+      type="index"
+      :index="indexMethod"/>
+        <el-table-column
+          label="photo">
+          <template slot-scope="scope">
+            <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${scope.row.id}.png`" :alt="scope.row.name" />
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="Nom">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="url">
+        </el-table-column>
+      </el-table>
     <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
     <button type="button" @click="goNextPage">suivant</button>
   </div>
@@ -41,11 +39,26 @@ export default {
       pageNextPath: null,
       pagePreviousPath: null,
       datas: '',
+      id: 1
     }
   },
   async fetch() {
     await this.getNextPokemons()
-    console.log(this.datas)
+    this.recuperationId()
+  },
+  computed: {
+    tableData(){
+      return this.datas.map((pokemon, i)=>{
+        return {...pokemon, id: i+1}
+      })
+    },
+    recuperationId(){
+      this.datas.forEach(pokemon => {
+        const hey = pokemon.url
+        const bonIndex = hey.substring(hey.length - 4).replace(/['n/]/g, '')
+        pokemon.id = bonIndex
+      })
+    },
   },
   methods: {
     async getNextPokemons() {
@@ -53,8 +66,9 @@ export default {
       this.datas = results
       this.pageNextPath = next
       this.pagePreviousPath = previous
-      
+      console.log(this.datas)
     },
+
     async getPreviousPokemons(){
       const {results, previous} = await this.$axios.$get(this.pokedexPath)
       this.datas = results
@@ -68,9 +82,9 @@ export default {
       this.pokedexPath = this.pagePreviousPath
       this.$fetch()
     },
-    goToCard(data) {
-      //console.log(data)
-    }
+    indexMethod(index) {
+        return index +1;
+      }
   },
 }
 </script>

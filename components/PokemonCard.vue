@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>heyy</p>
+    <h1>Carte Pokémon</h1>
     <pre>{{ pokemon.name }}</pre> <!-- Affichez les données pokemon -->
   </div>
 </template>
