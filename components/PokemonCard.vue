@@ -1,31 +1,17 @@
 <template>
   <div>
-    <p>{{path}}</p>
+    <p>heyy</p>
+    <pre>{{ pokemon.name }}</pre> <!-- Affichez les données pokemon -->
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      pokemonPath: null,
-      data: ''
+  props: {
+    pokemon: {
+      type: [],
+      required: true
     }
-  },
-  async fetch(){
-    await this.getOnePokemon()
-  },
-  methods: {
-    async getOnePokemon(){
-      const { path } = await this.$axios.$get(`https://pokeapi.co/api/v2/ability/${data.name}`)
-      this.data = path 
-      console.log('lol : ', this.data)
-    },
-    
-    
-  },
-  mounted(){
-
   }
 }
 </script>
