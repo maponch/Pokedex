@@ -5,6 +5,25 @@
     <ul>
       <li v-for="data in datas">
         <NuxtLink :to="`/pokemon/${data.name}`" >
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="Date"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="Nom"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="Adresse">
+            </el-table-column>
+          </el-table>
           {{ data.name }}
         </NuxtLink>
       </li>
@@ -18,7 +37,7 @@
 export default {
   data () {
     return {
-      pokedexPath: 'https://pokeapi.co/api/v2/pokemon',
+      pokedexPath: 'https://pokeapi.co/api/v2/pokemon/',
       pageNextPath: null,
       pagePreviousPath: null,
       datas: '',
@@ -26,6 +45,7 @@ export default {
   },
   async fetch() {
     await this.getNextPokemons()
+    console.log(this.datas)
   },
   methods: {
     async getNextPokemons() {
