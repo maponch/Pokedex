@@ -1,31 +1,23 @@
 <template>
-<div>
-  <span v-if="$fetchState.pending">Loading...</span>
-  <div v-else>
-        <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
-      <el-table
-        :data="datas"
-        border
-        style="width: 100%">
-        
-        <el-table-column
-      prop="id"
-      label="index"/>
-        <el-table-column
-          label="photo">
-          <template slot-scope="scope">
-            <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${scope.row.id}.png`" :alt="scope.row.name" />
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="Nom">
-        </el-table-column>
-      </el-table>
-    <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
-    <button type="button" @click="goNextPage">suivant</button>
+  <div>
+    <span v-if="$fetchState.pending">Loading...</span>
+    <div v-else>
+      <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
+        <el-table :data="datas" border style="width: 100%" @row-click="goToCard">
+          <el-table-column prop="id" label="index" />
+          <el-table-column label="photo">
+            <template slot-scope="scope">
+              <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${scope.row.id}.png`"
+                :alt="scope.row.name" />
+            </template>
+          </el-table-column>
+          <el-table-column prop="name" label="Nom">
+          </el-table-column>
+        </el-table>
+        <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
+        <button type="button" @click="goNextPage">suivant</button>
+    </div>
   </div>
-</div>
 </template>
 <script>
 export default {
@@ -78,9 +70,10 @@ export default {
       this.pokedexPath = this.pagePreviousPath
       this.$fetch()
     },
-    // indexMethod(index) {
-    //     return index +1;
-    //   }
+    goToCard(row) {
+      const pokemonName = row.name;
+      this.$router.push(`/pokemon/${pokemonName}`)
+    }
   },
 }
 </script>
