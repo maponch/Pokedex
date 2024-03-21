@@ -3,12 +3,14 @@
     "name": "index",
     "path": "/",
     "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_28dc176c"
   },
   {
     "name": "pokemon-name",
     "path": "/pokemon/:name?",
     "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\pokemon\\\\_name.vue",
-    "chunkName": "pages/pokemon/_name"
+    "chunkName": "pages/pokemon/_name",
+    "_name": "_20e43e22"
   }
 ]

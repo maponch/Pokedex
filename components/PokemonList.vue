@@ -4,7 +4,7 @@
   <div v-else>
         <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
       <el-table
-        :data="tableData"
+        :data="datas"
         border
         style="width: 100%">
         
@@ -20,10 +20,6 @@
         <el-table-column
           prop="name"
           label="Nom">
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="url">
         </el-table-column>
       </el-table>
     <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
@@ -46,20 +42,13 @@ export default {
     await this.getNextPokemons()
     this.recuperationId()
   },
-  computed: {
-    tableData(){
-      return this.datas.map((pokemon, i)=>{
-        return {...pokemon, id: i+1}
-      })
-    },
-    recuperationId(){
-      this.datas.forEach(pokemon => {
-        const hey = pokemon.url
-        const bonIndex = hey.substring(hey.length - 4).replace(/['n/]/g, '')
-        pokemon.id = bonIndex
-      })
-    },
-  },
+  // computed: {
+  //   tableData(){
+  //     return this.datas.map((pokemon, i)=>{
+  //       return {...pokemon, id: i+1}
+  //     })
+  //   },
+  // },
   methods: {
     async getNextPokemons() {
       const {results, next, previous} = await this.$axios.$get(this.pokedexPath)
@@ -68,7 +57,13 @@ export default {
       this.pagePreviousPath = previous
       console.log(this.datas)
     },
-
+    recuperationId() {
+      this.datas.forEach(pokemon => {
+        const hey = pokemon.url
+        const bonIndex = hey.substring(hey.length - 4).replace(/['n/]/g, '')
+        pokemon.id = bonIndex
+      })
+    },
     async getPreviousPokemons(){
       const {results, previous} = await this.$axios.$get(this.pokedexPath)
       this.datas = results
