@@ -9,8 +9,8 @@
         style="width: 100%">
         
         <el-table-column
-      type="index"
-      :index="indexMethod"/>
+      prop="id"
+      label="index"/>
         <el-table-column
           label="photo">
           <template slot-scope="scope">
@@ -35,7 +35,7 @@ export default {
       pageNextPath: null,
       pagePreviousPath: null,
       datas: '',
-      id: 1
+      id: ''
     }
   },
   async fetch() {
@@ -62,6 +62,7 @@ export default {
         const hey = pokemon.url
         const bonIndex = hey.substring(hey.length - 4).replace(/['n/]/g, '')
         pokemon.id = bonIndex
+        this.id = bonIndex
       })
     },
     async getPreviousPokemons(){
@@ -77,9 +78,9 @@ export default {
       this.pokedexPath = this.pagePreviousPath
       this.$fetch()
     },
-    indexMethod(index) {
-        return index +1;
-      }
+    // indexMethod(index) {
+    //     return index +1;
+    //   }
   },
 }
 </script>
