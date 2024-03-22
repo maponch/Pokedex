@@ -3,19 +3,30 @@
     <span v-if="$fetchState.pending">Loading...</span>
     <div v-else>
       <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
-        <el-table :data="datas" border style="width: 100%" @row-click="goToCard">
-          <el-table-column prop="id" label="index" />
-          <el-table-column label="photo">
-            <template slot-scope="scope">
-              <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${scope.row.id}.png`"
-                :alt="scope.row.name" />
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" label="Nom">
-          </el-table-column>
-        </el-table>
-        <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
-        <button type="button" @click="goNextPage">suivant</button>
+      <el-table :data="datas" border style="width: 100%" @row-click="goToCard">
+        <el-table-column prop="id" label="index" />
+        <el-table-column label="photo">
+          <template slot-scope="scope">
+            <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${scope.row.id}.png`"
+              :alt="scope.row.name" />
+          </template>
+        </el-table-column>
+        <el-table-column prop="name" label="Nom">
+        </el-table-column>
+        <el-table-column label="favoris">
+          <template slot-scope="scope">
+            <i v-if="scope.row.favorite" class="el-icon-star-off"></i>
+            <i v-else class="el-icon-star-on"></i>
+          </template>
+        </el-table-column>
+        <el-table-column label="info">
+          <template slot-scope="scope">
+            <i class="el-icon-info"></i>
+          </template>
+        </el-table-column>
+      </el-table>
+      <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
+      <button type="button" @click="goNextPage">suivant</button>
     </div>
   </div>
 </template>
@@ -27,7 +38,8 @@ export default {
       pageNextPath: null,
       pagePreviousPath: null,
       datas: '',
-      id: ''
+      id: '',
+      favorite: true
     }
   },
   async fetch() {

@@ -10,7 +10,10 @@
         <li v-for=" m in pokemon.moves"> attaque : {{ m.move.name }}</li>
         <li v-for=" ddf in type.damage_relations.double_damage_from">take double damage from : {{ ddf.name }}</li>
         <li v-for=" ddt in type.damage_relations.double_damage_to">take double dammage to : {{ ddt.name }}</li>
+        <li v-for=" hdf in type.damage_relations.half_damage_from">half damage from : {{ hdf.name }}</li>
+        <li v-for=" hdt in type.damage_relations.half_damage_to">half damage to : {{ hdt.name }}</li>
         <li v-for=" ndf in type.damage_relations.no_damage_from">no dammage from : {{ ndf.name }}</li>
+        <li v-for=" ndt in type.damage_relations.no_damage_to">No damage to : {{ ndt.name }}</li>
       </div>
     </el-card>
     <!-- Affichez les données pokemon -->
@@ -33,7 +36,8 @@ export default {
         double_damage_to: [],
         half_damage_from: [],
         half_damage_to: [],
-        no_damage_from: []
+        no_damage_from: [],
+        no_damage_to: []
 
       }}
     }
