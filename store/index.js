@@ -5,7 +5,7 @@ export const state = () => ({
 
 //getters
 export const getters = {
-
+  pokemons: state => state.pokemons
 }
 
 //actions
@@ -20,6 +20,10 @@ export const actions = {
 //mutations
 export const mutations = {
   PUSH_LIST(state, pokemons){
-    state.pokemons.push({pokemons})
+    const newNotes = [...state.pokemons, {
+      pokemons: pokemons
+    }]
+    localStorage.setItem('notes', JSON.stringify(newNotes))
+    state.pokemons = newNotes
   }
 }
