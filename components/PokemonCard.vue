@@ -46,14 +46,11 @@ export default {
     await this.getTypePokemon()
   },
   methods: {
-    display(){
-      console.log('tdc : ',this.pokemon)
-    },
     async getTypePokemon() {
       this.avantageFaiblessePath += this.pokemon.types[0].type.name
       this.type = await this.$axios.$get(this.avantageFaiblessePath)
-      console.log('grrrrrr',this.type)
-      console.log('tdc : ', this.avantageFaiblessePath)
+      // console.log('grrrrrr',this.type)
+      // console.log('tdc : ', this.avantageFaiblessePath)
   },
   }
 }

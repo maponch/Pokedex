@@ -3,7 +3,7 @@
     <span v-if="$fetchState.pending">Loading...</span>
     <div v-else>
       <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
-      <el-table :data="datas" border style="width: 100%" @row-click="goToCard">
+      <el-table :data="datas" border style="width: 100%" @row-dblclick="goToCard">
         <el-table-column prop="id" label="index" />
         <el-table-column label="photo">
           <template slot-scope="scope">
@@ -13,15 +13,15 @@
         </el-table-column>
         <el-table-column prop="name" label="Nom">
         </el-table-column>
-        <el-table-column label="favoris">
+        <el-table-column label="favoris" @click="addFavori(scope.row)">
           <template slot-scope="scope">
-            <i v-if="scope.row.favorite" class="el-icon-star-off"></i>
-            <i v-else class="el-icon-star-on"></i>
+            <i v-if="scope.row.favorite" class="el-icon-star-on"></i>
+            <i v-else class=" el-icon-star-off" @click="addFavori(scope.row)"></i>
           </template>
         </el-table-column>
         <el-table-column label="info">
-          <template slot-scope="scope">
-            <i class="el-icon-info"></i>
+          <template slot-scope="{row}">
+            <nuxt-link :to="`pokemon/${row.name}`">Voir<i class="el-icon-view el-icon--right"></i></nuxt-link>
           </template>
         </el-table-column>
       </el-table>
@@ -38,8 +38,7 @@ export default {
       pageNextPath: null,
       pagePreviousPath: null,
       datas: '',
-      id: '',
-      favorite: true
+      id: ''
     }
   },
   async fetch() {
@@ -59,7 +58,7 @@ export default {
       this.datas = results
       this.pageNextPath = next
       this.pagePreviousPath = previous
-      console.log(this.datas)
+      // console.log(this.datas)
     },
     recuperationId() {
       this.datas.forEach(pokemon => {
@@ -82,9 +81,19 @@ export default {
       this.pokedexPath = this.pagePreviousPath
       this.$fetch()
     },
-    goToCard(row) {
-      const pokemonName = row.name;
+    // goToCard(row) {
+    //   const pokemonName = row.name;
+    //   this.$router.push(`/pokemon/${pokemonName}`)
+    //   console.log('gtc :' ,row.name)
+    // },
+    goToCard(data) {
+      const pokemonName = data.name;
       this.$router.push(`/pokemon/${pokemonName}`)
+      console.log('gtc :', data.name)
+    },
+    addFavori(row){
+      row.favorite = !row.favorite
+      console.log('heeey')
     }
   },
 }
