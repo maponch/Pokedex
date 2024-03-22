@@ -13,7 +13,7 @@
         </el-table-column>
         <el-table-column prop="name" label="Nom">
         </el-table-column>
-        <el-table-column label="favoris" @click="addFavori(scope.row)">
+        <el-table-column label="favoris" @click="ADD_POKEMON_FAV">
           <template slot-scope="scope">
             <i v-if="scope.row.favorite" class="el-icon-star-on"></i>
             <i v-else class=" el-icon-star-off" @click="addFavori(scope.row)"></i>
@@ -28,9 +28,11 @@
       <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
       <button type="button" @click="goNextPage">suivant</button>
     </div>
+    <div v-for="pokemon in pokemons" :key="pokemon.name">{{ pokemon }}</div>
   </div>
 </template>
 <script>
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 export default {
   data () {
     return {
@@ -38,21 +40,17 @@ export default {
       pageNextPath: null,
       pagePreviousPath: null,
       datas: '',
-      id: ''
+      id: '',
+      favori: []
     }
   },
   async fetch() {
     await this.getNextPokemons()
     this.recuperationId()
   },
-  // computed: {
-  //   tableData(){
-  //     return this.datas.map((pokemon, i)=>{
-  //       return {...pokemon, id: i+1}
-  //     })
-  //   },
-  // },
+  computed: mapState(['pokemons']),
   methods: {
+    ...mapActions(['ADD_POKEMON_FAV']),
     async getNextPokemons() {
       const {results, next, previous} = await this.$axios.$get(this.pokedexPath)
       this.datas = results
