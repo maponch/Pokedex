@@ -2,6 +2,7 @@
   <div>
     <span v-if="$fetchState.pending">Loading...</span>
     <div v-else>
+      <div v-for="pokemon in pokemons" :key="pokemon.name">{{ pokemon }}</div>
       <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
       <el-table :data="datas" border style="width: 100%" @row-dblclick="goToCard">
         <el-table-column prop="id" label="index" />
@@ -15,21 +16,22 @@
         </el-table-column>
         <el-table-column label="favoris">
           <template slot-scope="scope">
-          <i v-if="scope.row.favorite" class="el-icon-star-on" ></i>
-          <i v-else class=" el-icon-star-off" @click="DELETE_POKEMON_FAV(scope.row.name)"></i>
+            <i v-if="favori.includes(scope.row.name)" class="el-icon-star-off"
+              @click="removePokemonFavori(scope.row.name)"></i>
+            <i v-else class=" el-icon-star-on" @click="addPokemonFavori(scope.row.name)"></i>
           </template>
         </el-table-column>
         <el-table-column label="info">
           <template slot-scope="{row}">
             <nuxt-link :to="`pokemon/${row.name}`">Voir<i class="el-icon-view el-icon--right"></i></nuxt-link>
           </template>
-      </el-table-column>
-    </el-table>
-    <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
-    <button type="button" @click="goNextPage">suivant</button>
+        </el-table-column>
+      </el-table>
+      <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
+      <button type="button" @click="goNextPage">suivant</button>
+    </div>
+
   </div>
-<div v-for="pokemon in pokemons" :key="pokemon.name">{{ pokemon }}</div>
-</div>
 </template>
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex'
@@ -41,7 +43,7 @@ export default {
       pagePreviousPath: null,
       datas: '',
       id: '',
-      favori: []
+      favori: [],
     }
   },
   async fetch() {
@@ -50,7 +52,20 @@ export default {
   },
   computed: mapGetters(['pokemons']),
   methods: {
-    ...mapActions(['ADD_POKEMON_FAV', 'DELETE_POKEMON_FAV']),
+    ...mapActions({
+      addPokemonFavoriStore :'ADD_POKEMON_FAV',
+      removePokemonFavoriStore : 'DELETE_POKEMON_FAV'
+    }),
+    addPokemonFavori(data){
+      this.favori.push(data)
+      this.addPokemonFavoriStore(data)
+      console.log('add : ', this.favori)
+    },
+    removePokemonFavori(data){
+      this.removePokemonFavoriStore(data)
+      const imagine =this.favori.filter((f)=> f !== data)
+      console.log('remove', imagine)
+    },
     async getNextPokemons() {
       const {results, next, previous} = await this.$axios.$get(this.pokedexPath)
       this.datas = results
@@ -87,12 +102,8 @@ export default {
     goToCard(data) {
       const pokemonName = data.name;
       this.$router.push(`/pokemon/${pokemonName}`)
-      console.log('gtc :', data.name)
+      console.log('goToCard :', data.name)
     },
-    addFavori(row){
-      row.favorite = !row.favorite
-      console.log('heeey')
-    }
   },
 }
 </script>
