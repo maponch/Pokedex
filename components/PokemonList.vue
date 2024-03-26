@@ -16,23 +16,23 @@
         <el-table-column label="favoris">
           <template slot-scope="scope">
           <i v-if="scope.row.favorite" class="el-icon-star-on" ></i>
-          <i v-else class=" el-icon-star-off" @click="ADD_POKEMON_FAV(scope.row.name)"></i>
-</template>
-</el-table-column>
-<el-table-column label="info">
-  <template slot-scope="{row}">
-    <nuxt-link :to="`pokemon/${row.name}`">Voir<i class="el-icon-view el-icon--right"></i></nuxt-link>
-  </template>
-</el-table-column>
-</el-table>
-<button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
-<button type="button" @click="goNextPage">suivant</button>
-</div>
+          <i v-else class=" el-icon-star-off" @click="DELETE_POKEMON_FAV(scope.row.name)"></i>
+          </template>
+        </el-table-column>
+        <el-table-column label="info">
+          <template slot-scope="{row}">
+            <nuxt-link :to="`pokemon/${row.name}`">Voir<i class="el-icon-view el-icon--right"></i></nuxt-link>
+          </template>
+      </el-table-column>
+    </el-table>
+    <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
+    <button type="button" @click="goNextPage">suivant</button>
+  </div>
 <div v-for="pokemon in pokemons" :key="pokemon.name">{{ pokemon }}</div>
 </div>
 </template>
 <script>
-import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
+import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
   data () {
     return {
@@ -48,9 +48,9 @@ export default {
     await this.getNextPokemons()
     this.recuperationId()
   },
-  computed: mapState(['pokemons']),
+  computed: mapGetters(['pokemons']),
   methods: {
-    ...mapActions(['ADD_POKEMON_FAV']),
+    ...mapActions(['ADD_POKEMON_FAV', 'DELETE_POKEMON_FAV']),
     async getNextPokemons() {
       const {results, next, previous} = await this.$axios.$get(this.pokedexPath)
       this.datas = results

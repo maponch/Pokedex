@@ -1,6 +1,7 @@
 //state
+console.log('heyyy')
 export const state = () => ({
-  pokemons: []
+  pokemons: JSON.parse(localStorage.getItem('pokemons')) || []
 })
 
 //getters
@@ -14,16 +15,27 @@ export const actions = {
     context.commit('PUSH_LIST', pokemons)
     console.log('store : ',pokemons)
     return pokemons
+  },
+  DELETE_POKEMON_FAV(state, pokemon){
+    state.commit('REMOVE_LIST', pokemon)
+    
   }
 }
 
 //mutations
 export const mutations = {
   PUSH_LIST(state, pokemons){
-    const newNotes = [...state.pokemons, {
+    const newPokemons = [...state.pokemons, {
       pokemons: pokemons
     }]
-    localStorage.setItem('notes', JSON.stringify(newNotes))
-    state.pokemons = newNotes
+    localStorage.setItem('pokemons', JSON.stringify(newPokemons))
+    state.pokemons = newPokemons
+  },
+  REMOVE_LIST(state, pokemon){
+    const arr = [...state.pokemons]
+    const filtreArr = arr.filter((a) => a.pokemons !== pokemon )
+    
+    localStorage.setItem('pokemons', JSON.stringify(filtreArr))
+    state.pokemons = filtreArr
   }
 }
