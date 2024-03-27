@@ -1,5 +1,6 @@
 <template>
 <div>
+  <h1>Pokedex v 1</h1>
   <searchBar></searchBar>
   <PokemonList></PokemonList>
 </div>

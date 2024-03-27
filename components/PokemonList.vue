@@ -4,7 +4,7 @@
     <div v-else>
       <div v-for="pokemon in pokemons" :key="pokemon.name">{{ pokemon }}</div>
       <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
-      <el-table :data="datas" border style="width: 100%" @row-dblclick="goToCard">
+      <el-table :data="tableDatas" border style="width: 100%" @row-dblclick="goToCard">
         <el-table-column prop="id" label="index" />
         <el-table-column label="photo">
           <template slot-scope="scope">
@@ -14,11 +14,15 @@
         </el-table-column>
         <el-table-column prop="name" label="Nom">
         </el-table-column>
-        <el-table-column label="favoris">
+        <el-table-column label="favoris" columun-key="favoris" :filters="[{ text: 'favori', value: true }]"
+          :filter-method="filterTag">
           <template slot-scope="scope">
-            <i v-if="favori.includes(scope.row.name)" class="el-icon-star-off"
-              @click="removePokemonFavori(scope.row.name)"></i>
-            <i v-else class=" el-icon-star-on" @click="addPokemonFavori(scope.row.name)"></i>
+            <el-tag :type="scope.row.tag === 'Home' ? 'primary' : 'success'" disable-transitions>{{ scope.row.tag
+              }}</el-tag>
+          </template>
+          <template slot-scope="scope">
+            <i :class="{ 'el-icon-star-off': !isPokemonFavorite(scope.row.name), 'el-icon-star-on': isPokemonFavorite(scope.row.name) }"
+              @click="toogleFavori(scope.row.name)"></i>
           </template>
         </el-table-column>
         <el-table-column label="info">
@@ -30,7 +34,6 @@
       <button v-show="pagePreviousPath !== null" type="button" @click="goPreviousPage">précédent</button>
       <button type="button" @click="goNextPage">suivant</button>
     </div>
-
   </div>
 </template>
 <script>
@@ -43,29 +46,49 @@ export default {
       pagePreviousPath: null,
       datas: '',
       id: '',
-      favori: [],
+      isFav: false
     }
   },
   async fetch() {
     await this.getNextPokemons()
-    this.recuperationId()
+    this.$store.subscribe((mutation) => {
+      if (mutation.type === 'PUSH_LIST' || mutation.type === 'REMOVE_LIST') {
+        this.$fetch();
+      }
+    });
   },
-  computed: mapGetters(['pokemons']),
+  computed: {
+    ...mapGetters(['pokemons']),
+    filteredPokemons() {
+      return this.datas.filter(pokemon => this.isPokemonFavorite(pokemon.name));
+    },
+    tableDatas(){
+      return this.datas.map(d => {
+        const hey = d.url
+        return {
+          ...d,
+          id: hey.substring(hey.length - 4).replace(/['n/]/g, ''),
+          isFav: this.isPokemonFavorite(d.name)
+        }
+      })
+    }
+},
+
   methods: {
     ...mapActions({
       addPokemonFavoriStore :'ADD_POKEMON_FAV',
-      removePokemonFavoriStore : 'DELETE_POKEMON_FAV'
+      removePokemonFavoriStore : 'DELETE_POKEMON_FAV',
+      toogleFavori : 'listFavAjout'
     }),
-    addPokemonFavori(data){
-      this.favori.push(data)
-      this.addPokemonFavoriStore(data)
-      console.log('add : ', this.favori)
-    },
-    removePokemonFavori(data){
-      this.removePokemonFavoriStore(data)
-      const imagine =this.favori.filter((f)=> f !== data)
-      console.log('remove', imagine)
-    },
+    // addPokemonFavori(data){
+    //   this.favori.push(data)
+    //   this.addPokemonFavoriStore(data)
+    // },
+    // removePokemonFavori(data){
+    //   this.removePokemonFavoriStore(data)
+    //   const imagine =this.favori.filter((f)=> f !== data)
+    //   console.log('remove', imagine)
+    // },
     async getNextPokemons() {
       const {results, next, previous} = await this.$axios.$get(this.pokedexPath)
       this.datas = results
@@ -73,13 +96,12 @@ export default {
       this.pagePreviousPath = previous
       // console.log(this.datas)
     },
-    recuperationId() {
-      this.datas.forEach(pokemon => {
-        const hey = pokemon.url
-        const bonIndex = hey.substring(hey.length - 4).replace(/['n/]/g, '')
-        pokemon.id = bonIndex
-        this.id = bonIndex
-      })
+    isPokemonFavorite(pokemon) {
+      return this.pokemons.includes(pokemon);
+    },
+    filterTag(value, row) {
+      console.log({row})
+      return row.isFav === value;
     },
     async getPreviousPokemons(){
       const {results, previous} = await this.$axios.$get(this.pokedexPath)
