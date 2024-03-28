@@ -1,6 +1,8 @@
 export { default as PokemonCard } from '../..\\components\\PokemonCard.vue'
 export { default as PokemonList } from '../..\\components\\PokemonList.vue'
 export { default as SearchBar } from '../..\\components\\SearchBar.vue'
+export { default as TypeDetails } from '../..\\components\\TypeDetails.vue'
+export { default as TypePokemon } from '../..\\components\\TypePokemon.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

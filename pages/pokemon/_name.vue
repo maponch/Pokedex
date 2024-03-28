@@ -20,7 +20,7 @@ export default {
     const apiUrl = `https://pokeapi.co/api/v2/pokemon/${name}`;
     const pokemonData = await fetch(apiUrl);
     const pokemon = await pokemonData.json();
-    // console.log('flop : ',pokemon)
+    console.log('flop : ',apiUrl)
     return { pokemon }
   },
   components: {

@@ -4,8 +4,10 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
+const _3bb3f871 = () => interopDefault(import('..\\pages\\types.vue' /* webpackChunkName: "pages/types" */))
 const _28dc176c = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 const _20e43e22 = () => interopDefault(import('..\\pages\\pokemon\\_name.vue' /* webpackChunkName: "pages/pokemon/_name" */))
+const _13df77e8 = () => interopDefault(import('..\\pages\\type\\_name.vue' /* webpackChunkName: "pages/type/_name" */))
 
 const emptyFn = () => {}
 
@@ -19,6 +21,10 @@ export const routerOptions = {
   scrollBehavior,
 
   routes: [{
+    path: "/types",
+    component: _3bb3f871,
+    name: "types"
+  }, {
     path: "/",
     component: _28dc176c,
     name: "index"
@@ -26,6 +32,10 @@ export const routerOptions = {
     path: "/pokemon/:name?",
     component: _20e43e22,
     name: "pokemon-name"
+  }, {
+    path: "/type/:name?",
+    component: _13df77e8,
+    name: "type-name"
   }],
 
   fallback: false

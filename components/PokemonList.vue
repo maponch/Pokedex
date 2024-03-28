@@ -2,10 +2,9 @@
   <div>
     <span v-if="$fetchState.pending">Loading...</span>
     <div v-else>
-      <div v-for="pokemon in pokemons" :key="pokemon.name">{{ pokemon }}</div>
       <!-- <button type="button" @click="recuperationId">GOOOOOOO</button> -->
       <el-table :data="tableDatas" border style="width: 100%" @row-dblclick="goToCard">
-        <el-table-column prop="id" label="index" />
+        <el-table-column prop="id" label="index" style="margin-top: 50px;" />
         <el-table-column label="photo">
           <template slot-scope="scope">
             <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${scope.row.id}.png`"

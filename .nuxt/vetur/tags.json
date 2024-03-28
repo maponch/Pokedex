@@ -7,5 +7,11 @@
   },
   "SearchBar": {
     "description": "Auto imported from components/SearchBar.vue"
+  },
+  "TypeDetails": {
+    "description": "Auto imported from components/TypeDetails.vue"
+  },
+  "TypePokemon": {
+    "description": "Auto imported from components/TypePokemon.vue"
   }
 }

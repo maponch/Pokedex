@@ -1,7 +1,7 @@
 export default {
   ssr: false,
   modules: ['@nuxtjs/axios'],
-  axios: { baseURL: 'https://pokeapi.co/api/v2/pokemon/ditto' },
+  axios: { baseURL: 'https://pokeapi.co/api/v2/' },
   components: true,
   routes: {
     prefetchLinks: true

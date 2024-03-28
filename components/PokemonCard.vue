@@ -3,21 +3,31 @@
     <!-- Affichez les données pokemon -->
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <img :src="pokemon.sprites.front_default" :alt="pokemon.name" />
-        <span>{{ pokemon.name }}</span>
-        <li v-for=" t in pokemon.types"> type : {{ t.type.name }}</li>
+        <el-row :gutter="20">
+          <span>{{ pokemon.name }}</span>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <img :src="pokemon.sprites.front_default" :alt="pokemon.name" width="75%" />
+          </el-col>
+          <el-col :span="16">
+            <el-table :data="pokemon.moves" height="250" style="width: 50%">
+              <el-table-column label="Liste des attaques" width="180">
+                <li v-for=" m in pokemon.moves"> {{ m.move.name }}</li>
+              </el-table-column>
+            </el-table>
+          </el-col>
+        </el-row>
+        <span v-for=" t in pokemon.types"><el-button round>{{ t.type.name }}</el-button></span>
       </div>
       <div class="text item">
         <template>
-          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="Attack" name="seventh">
-              <li v-for=" m in pokemon.moves"> attaque : {{ m.move.name }}</li>
-            </el-tab-pane>
+          <el-tabs>
             <el-tab-pane label="Take 2x" name="first">
               <li v-for=" ddf in type.damage_relations.double_damage_from">take double damage from : {{ ddf.name }}
               </li>
-            </el-tab-pane>
-            <el-tab-pane label="Give 2x" name="second">
+              <li v-for=" ddfUrl in type.damage_relations.double_damage_from">{{ ddfUrl.url }}</li> </el-tab-pane>
+                <el-tab-pane label="Give 2x" name="second">
               <li v-for=" ddt in type.damage_relations.double_damage_to">take double dammage to : {{ ddt.name }}</li>
             </el-tab-pane>
             <el-tab-pane label="1/2 from" name="third">
@@ -49,6 +59,7 @@ export default {
   data(){
     return {
       avantageFaiblessePath: 'https://pokeapi.co/api/v2/type/',
+      path: 'https://pokeapi.co/api/v2/type/',
       type: { damage_relations: {
         double_damage_from: [],
         double_damage_to: [],
@@ -57,18 +68,26 @@ export default {
         no_damage_from: [],
         no_damage_to: []
       }},
+      moves : []
     }
   },
   async fetch(){
     await this.getTypePokemon()
+    await this.getPokemonByType()
   },
   methods: {
     async getTypePokemon() {
-      this.avantageFaiblessePath += this.pokemon.types[0].type.name
+      this.avantageFaiblessePath += this.pokemon.types[0].type.name + '?limit=3'
       this.type = await this.$axios.$get(this.avantageFaiblessePath)
-      // console.log('grrrrrr',this.type)
+      console.log('grrrrrr',this.type)
       // console.log('tdc : ', this.avantageFaiblessePath)
-  },
+      console.log('getTypePokemon :', this.pokemon )
+    },
+    async getPokemonByType(){
+      this.pathath += this.type.damage_relations.double_damage_from[0].name
+      this.pokemonByType = await this.$axios.get(this.path)
+      console.log('getPokemonBytype :', this.pokemonByType)
+    },
   }
 }
 </script>
