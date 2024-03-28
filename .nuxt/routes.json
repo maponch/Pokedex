@@ -3,24 +3,28 @@
     "name": "types",
     "path": "/types",
     "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\types.vue",
-    "chunkName": "pages/types"
+    "chunkName": "pages/types",
+    "_name": "_3bb3f871"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_28dc176c"
   },
   {
     "name": "pokemon-name",
     "path": "/pokemon/:name?",
     "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\pokemon\\\\_name.vue",
-    "chunkName": "pages/pokemon/_name"
+    "chunkName": "pages/pokemon/_name",
+    "_name": "_20e43e22"
   },
   {
     "name": "type-name",
     "path": "/type/:name?",
     "component": "C:\\\\wamp64\\\\www\\\\Arkdev\\\\pokedex\\\\pages\\\\type\\\\_name.vue",
-    "chunkName": "pages/type/_name"
+    "chunkName": "pages/type/_name",
+    "_name": "_13df77e8"
   }
 ]

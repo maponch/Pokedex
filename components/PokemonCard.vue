@@ -18,7 +18,7 @@
             </el-table>
           </el-col>
         </el-row>
-        <span v-for=" t in pokemon.types"><el-button round>{{ t.type.name }}</el-button></span>
+        <span v-for=" t in pokemon.types"><el-button round><NuxtLink :to="`/type/${t.type.name}`">{{ t.type.name }}</NuxtLink></el-button></span>
       </div>
       <div class="text item">
         <template>
@@ -26,7 +26,7 @@
             <el-tab-pane label="Take 2x" name="first">
               <li v-for=" ddf in type.damage_relations.double_damage_from">take double damage from : {{ ddf.name }}
               </li>
-              <li v-for=" ddfUrl in type.damage_relations.double_damage_from">{{ ddfUrl.url }}</li> </el-tab-pane>
+              </el-tab-pane>
                 <el-tab-pane label="Give 2x" name="second">
               <li v-for=" ddt in type.damage_relations.double_damage_to">take double dammage to : {{ ddt.name }}</li>
             </el-tab-pane>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import ListType from '@/components/list/ListType'
 export default {
   props: {
     pokemon: {
@@ -71,6 +72,9 @@ export default {
       moves : []
     }
   },
+  components:{
+    ListType
+  },
   async fetch(){
     await this.getTypePokemon()
     await this.getPokemonByType()
@@ -84,7 +88,7 @@ export default {
       console.log('getTypePokemon :', this.pokemon )
     },
     async getPokemonByType(){
-      this.pathath += this.type.damage_relations.double_damage_from[0].name
+      this.path += this.type.damage_relations.double_damage_from[0].name
       this.pokemonByType = await this.$axios.get(this.path)
       console.log('getPokemonBytype :', this.pokemonByType)
     },

@@ -13,5 +13,8 @@
   },
   "TypePokemon": {
     "description": "Auto imported from components/TypePokemon.vue"
+  },
+  "ListType": {
+    "description": "Auto imported from components/list/ListType.vue"
   }
 }

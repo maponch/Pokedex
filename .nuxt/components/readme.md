@@ -11,3 +11,4 @@ You can directly use them in pages and other components without the need to impo
 - `<SearchBar>` | `<search-bar>` (components/SearchBar.vue)
 - `<TypeDetails>` | `<type-details>` (components/TypeDetails.vue)
 - `<TypePokemon>` | `<type-pokemon>` (components/TypePokemon.vue)
+- `<ListType>` | `<list-type>` (components/list/ListType.vue)
