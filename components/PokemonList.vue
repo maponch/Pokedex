@@ -58,9 +58,6 @@ export default {
   },
   computed: {
     ...mapGetters(['pokemons']),
-    filteredPokemons() {
-      return this.datas.filter(pokemon => this.isPokemonFavorite(pokemon.name));
-    },
     tableDatas(){
       return this.datas.map(d => {
         const hey = d.url

@@ -24,11 +24,18 @@
         <li v-for=" ndt in type.damage_relations.no_damage_to">No damage to : {{ ndt.name }}</li>
       </el-tab-pane>
     </el-tabs>
-    <el-table :data="type.pokemon" style="width: 100%">
-      <el-table-column prop="pokemon" label="Date" width="180">
+    <el-table :data="tableDatas" style="width: 100%" @row-dblclick="goToCard">
+      <el-table-column prop="id" label="id" width="180">
+      </el-table-column>
+      <el-table-column prop="pokemon.name" label="name" width="180">
+      </el-table-column>
+      <el-table-column label="photo">
+        <template slot-scope="scope">
+          <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${scope.row.id}.png`"
+            :alt="scope.row.name" />
+        </template>
       </el-table-column>
     </el-table>
-    <pre>{{ type.pokemon }}</pre>
   </div>
 </template>
 <script>
@@ -48,6 +55,7 @@ export default{
           no_damage_to: []
         }
       },
+      id: ''
     }
   },
   props: {
@@ -55,11 +63,35 @@ export default{
       required: true
     },
   },
+  computed: {
+    tableDatas() {
+      return this.type.pokemon.map(d => {
+        const hey = d.pokemon.url
+        // console.log(hey)
+        
+          const id= hey.split('/').slice(-2, -1)[0]
+          // console.log('Extracted ID:', id)
+          const newDatas = {
+          ...d,
+          id: id
+          // id: hey.substring(hey.length - 4).replace(/['n/]/g, ''),
+          // isFav: this.isPokemonFavorite(d.name)
+        }
+        // console.log('New data with ID:', newDatas)
+        return newDatas
+      })
+    }
+  },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
       console.log({type})
-    }
+    },
+    goToCard(data) {
+      const pokemonName = data.pokemon.name;
+      this.$router.push(`/pokemon/${pokemonName}`)
+      console.log('goToCard :', data.name)
+    },
   },
   // components: ListType
 }
