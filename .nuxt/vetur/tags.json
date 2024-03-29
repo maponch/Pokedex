@@ -1,4 +1,7 @@
 {
+  "FirstPokemonFromType": {
+    "description": "Auto imported from components/FirstPokemonFromType.vue"
+  },
   "PokemonCard": {
     "description": "Auto imported from components/PokemonCard.vue"
   },

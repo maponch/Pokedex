@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLink to="/">Home page</NuxtLink>
-    <PokemonCard :pokemon="pokemon"></PokemonCard>
+    <PokemonCard :pokemon="pokemon" :type="type"></PokemonCard>
   </div>
 </template>
 
@@ -11,7 +11,8 @@ import PokemonCard from '@/components/Pokemoncard.vue'
 export default {
   data(){
     return {
-      pokemon: []
+      pokemon: [],
+      type: []
     }
   },
   async asyncData({route:{params:{name}}}){
@@ -21,8 +22,19 @@ export default {
     const pokemonData = await fetch(apiUrl);
     const pokemon = await pokemonData.json();
     console.log('flop : ',apiUrl)
+    console.log('flop : ', pokemon)
     return { pokemon }
   },
+  // async asyncData({ route: { params: { name } } }) {
+  //   console.log(name)
+  //   const apiUrl = `https://pokeapi.co/api/v2/type/${name}`
+  //   console.log('test: ', apiUrl)
+  //   const typeData = await fetch(apiUrl)
+  //   const type = await typeData.json()
+
+  //   return { type }
+  // },
+
   components: {
     PokemonCard
   }

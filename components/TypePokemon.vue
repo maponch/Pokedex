@@ -1,11 +1,9 @@
 <template>
   <div>
-    Hello
     <el-table :data="allTypes.results" style="width: 100%" @row-click="goToType">
-      <el-table-column prop="name" label="Types" width="180">
+      <el-table-column prop="name" label="Types" >
       </el-table-column>
     </el-table>
-    <pre>{{ allTypes }}</pre>
   </div>
 </template>
 <script>

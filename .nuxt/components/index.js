@@ -1,3 +1,4 @@
+export { default as FirstPokemonFromType } from '../..\\components\\FirstPokemonFromType.vue'
 export { default as PokemonCard } from '../..\\components\\PokemonCard.vue'
 export { default as PokemonList } from '../..\\components\\PokemonList.vue'
 export { default as SearchBar } from '../..\\components\\SearchBar.vue'

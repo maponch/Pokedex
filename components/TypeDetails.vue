@@ -35,6 +35,11 @@
             :alt="scope.row.name" />
         </template>
       </el-table-column>
+      <el-table-column label="info">
+        <template slot-scope="{row}">
+          <nuxt-link :to="`../pokemon/${row.pokemon.name}`">Voir<i class="el-icon-view el-icon--right"></i></nuxt-link>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -90,7 +95,7 @@ export default{
     goToCard(data) {
       const pokemonName = data.pokemon.name;
       this.$router.push(`/pokemon/${pokemonName}`)
-      console.log('goToCard :', data.name)
+      console.log('goToCard :', data.pokemon.name)
     },
   },
   // components: ListType

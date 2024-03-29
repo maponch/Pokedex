@@ -6,6 +6,7 @@ You can directly use them in pages and other components without the need to impo
 
 **Tip:** If a component is conditionally rendered with `v-if` and is big, it is better to use `Lazy` or `lazy-` prefix to lazy load.
 
+- `<FirstPokemonFromType>` | `<first-pokemon-from-type>` (components/FirstPokemonFromType.vue)
 - `<PokemonCard>` | `<pokemon-card>` (components/PokemonCard.vue)
 - `<PokemonList>` | `<pokemon-list>` (components/PokemonList.vue)
 - `<SearchBar>` | `<search-bar>` (components/SearchBar.vue)
